@@ -73,9 +73,9 @@ pub const Version = struct {
 };
 
 pub const CodeGeneratorRequest = struct {
-    file_to_generate: std.ArrayListUnmanaged([]const u8) = .empty,
+    file_to_generate: std.ArrayList([]const u8) = .empty,
     parameter: ?[]const u8 = null,
-    proto_file: std.ArrayListUnmanaged(google_protobuf.FileDescriptorProto) = .empty,
+    proto_file: std.ArrayList(google_protobuf.FileDescriptorProto) = .empty,
     compiler_version: ?Version = null,
 
     pub const _desc_table = .{
@@ -140,7 +140,7 @@ pub const CodeGeneratorRequest = struct {
 pub const CodeGeneratorResponse = struct {
     @"error": ?[]const u8 = null,
     supported_features: ?u64 = null,
-    file: std.ArrayListUnmanaged(CodeGeneratorResponse.File) = .empty,
+    file: std.ArrayList(CodeGeneratorResponse.File) = .empty,
 
     pub const _desc_table = .{
         .@"error" = fd(1, .{ .scalar = .string }),
