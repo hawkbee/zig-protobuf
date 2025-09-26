@@ -202,7 +202,7 @@ const GenerationContext = struct {
         lines: *std.ArrayList([]const u8),
         fqn: FullName,
         file: descriptor.FileDescriptorProto,
-        enums: std.ArrayListUnmanaged(descriptor.EnumDescriptorProto),
+        enums: std.ArrayList(descriptor.EnumDescriptorProto),
     ) !void {
         _ = ctx;
         _ = file;
@@ -333,7 +333,7 @@ const GenerationContext = struct {
                 }
             }
         } else {
-            prefix = "std.ArrayListUnmanaged(";
+            prefix = "std.ArrayList(";
             postfix = ")";
         }
 
@@ -565,7 +565,7 @@ const GenerationContext = struct {
         lines: *std.ArrayList([]const u8),
         fqn: FullName,
         file: descriptor.FileDescriptorProto,
-        messages: std.ArrayListUnmanaged(descriptor.DescriptorProto),
+        messages: std.ArrayList(descriptor.DescriptorProto),
     ) !void {
         for (messages.items) |message| {
             const m: descriptor.DescriptorProto = message;

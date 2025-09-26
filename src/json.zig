@@ -207,7 +207,7 @@ fn stringify_struct_field(
         },
         .@"enum" => try print_numeric(value, jws),
         .repeated, .packed_repeated => |repeated| {
-            // ArrayListUnmanaged
+            // ArrayList
             const slice = value.items;
             try jws.beginArray();
             for (slice) |el| {
@@ -279,14 +279,14 @@ fn parseStructField(
         fieldInfo.name,
     ).ftype) {
         .repeated, .packed_repeated => |repeated| list: {
-            // repeated T -> ArrayListUnmanaged(T)
+            // repeated T -> ArrayList(T)
             switch (try source.peekNextTokenType()) {
                 .array_begin => {
                     std.debug.assert(.array_begin == try source.next());
                     const child_type = @typeInfo(
                         fieldInfo.type.Slice,
                     ).pointer.child;
-                    var array_list: std.ArrayListUnmanaged(child_type) = .empty;
+                    var array_list: std.ArrayList(child_type) = .empty;
                     while (true) {
                         if (.array_end == try source.peekNextTokenType()) {
                             _ = try source.next();

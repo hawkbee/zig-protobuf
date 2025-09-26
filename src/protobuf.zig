@@ -848,7 +848,7 @@ pub fn deinitField(
                 },
                 .slice => {
                     comptime std.debug.assert(
-                        // TODO: Use slices instead of `ArrayListUnmanaged`
+                        // TODO: Use slices instead of `ArrayList`
                         // for (packed) lists.
                         // desc.ftype == .repeated or
                         // desc.ftype == .packed_repeated or
@@ -964,7 +964,7 @@ pub fn deinitField(
                 else => unreachable,
             }
         },
-        // Maps, `oneof` submessages, and `ArrayListUnmanaged`s
+        // Maps, `oneof` submessages, and `ArrayList`s
         .@"struct" => |s| {
             // If arraylist, also free items inside.
             if (comptime s.fields.len == 2 and
